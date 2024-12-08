@@ -33,7 +33,7 @@ impl InfoRouter {
 }
 
 impl RouterHandler for InfoRouter {
-    /// Callback for handling new requests
+    /// This is when a read/write shard start up and announce their existance
     fn handle_announce_shard_request(&self, req: &AnnounceShardRequest) -> AnnounceShardResponse {
         unimplemented!()
     }
@@ -41,43 +41,32 @@ impl RouterHandler for InfoRouter {
         unimplemented!()
     }
 
-    fn handle_get_client_shard_info_request(&self, req: &GetClientShardInfoRequest) -> GetClientShardInfoResponse {
-        unimplemented!()
-    }
-
-    /// Info server does not handle requests in relation to the actual key/value state
-    /// we could change this to return an error response in the future
-    fn handle_query_version_request(&self, req: &QueryVersionRequest) -> QueryVersionResponse {
-        unimplemented!()
-    }
-    fn handle_read_request(&self, req: &ReadRequest) -> ReadResponse {unimplemented!()}
-    fn handle_write_request(&self, req: &WriteRequest) -> WriteResponse {unimplemented!()}
-
+    /// This is when a read shard is trying to find its peers
     fn handle_get_shared_peers_request(&self, req: &GetSharedPeersRequest) -> GetSharedPeersResponse {
         unimplemented!()
     }
+    fn handle_get_shared_peers_response(&self, res: &GetSharedPeersResponse) {
+        unimplemented!()
+    }
 
-    /// Callbacks for handling responses to outbound requests
-    
-
+    /// This is when a client is trying to figure out who to connect to
+    fn handle_get_client_shard_info_request(&self, req: &GetClientShardInfoRequest) -> GetClientShardInfoResponse {
+        unimplemented!()
+    }
     fn handle_get_client_shard_info_response(&self, res: &GetClientShardInfoResponse) {
         unimplemented!()
     }
 
-    fn handle_query_version_response(&self, res: &QueryVersionResponse) {
-        unimplemented!()
-    }
+    /// Unused requests
+    fn handle_query_version_request(&self, req: &QueryVersionRequest) -> QueryVersionResponse {unimplemented!()}
+    fn handle_read_request(&self, req: &ReadRequest) -> ReadResponse {unimplemented!()}
+    fn handle_write_request(&self, req: &WriteRequest) -> WriteResponse {unimplemented!()}
 
-    fn handle_read_response(&self, res: &ReadResponse) {
-    }
+    /// Unused responses
+    fn handle_query_version_response(&self, res: &QueryVersionResponse) {unimplemented!()}
+    fn handle_read_response(&self, res: &ReadResponse) {unimplemented!()}
+    fn handle_write_response(&self, res: &WriteResponse) {unimplemented!()}
 
-    fn handle_write_response(&self, res: &WriteResponse) {
-        unimplemented!()
-    }
-
-    fn handle_get_shared_peers_response(&self, res: &GetSharedPeersResponse) {
-        unimplemented!()
-    }
 }
 
 
