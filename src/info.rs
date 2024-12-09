@@ -17,6 +17,8 @@ use messages::responses::query_version_response::QueryVersionResponse;
 use messages::responses::read_response::ReadResponse;
 use messages::responses::write_response::WriteResponse;
 
+use messages::requests::announce_shard_request::ShardType;
+
 use tokio::io::{AsyncReadExt, AsyncWriteExt};
 use tokio::net::TcpListener;
 use anyhow::{Result};
@@ -26,15 +28,20 @@ struct ShardInfo {
     port: u16,
 }
 
+struct ReadWriteShardBlock {
+    write_shard: ShardInfo,
+    read_shards: Vec<ShardInfo>
+}
+
 struct InfoRouter {
     num_write_shard: u32,
-    read_shards: Vec<ShardInfo>,
-    write_shards: Vec<ShardInfo>
+    shard_blocks: Vec<ReadWriteShardBlock>
 }
 
 impl InfoRouter {
     pub fn new(num_write_shard: u32) -> Self {
         InfoRouter {
+            shard_blocks: Vec::new(),
             num_write_shard: num_write_shard
         }
     }
@@ -43,6 +50,14 @@ impl InfoRouter {
 impl RouterHandler for InfoRouter {
     /// This is when a read/write shard start up and announce their existance
     fn handle_announce_shard_request(&self, req: &AnnounceShardRequest) -> AnnounceShardResponse {
+        match req.shard_type {
+            ShardType::ReadShard => {
+                req.
+            }
+            ShardType::WriteShard => {
+
+            }
+        }
         unimplemented!()
     }
     fn handle_announce_shard_response(&self, res: &AnnounceShardResponse) {
